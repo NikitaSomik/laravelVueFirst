@@ -19,8 +19,27 @@
                         <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link> |
                         <router-link class="nav-link" :to="{ name: 'login' }">Login</router-link>
                         <router-link class="nav-link" :to="{ name: 'register' }">Register</router-link>
+                        <!--<router-link class="nav-link" :to="{ name: 'welcome' }">Welcome</router-link>-->
                     </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            User<span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="">
+                               <!--onclick="event.preventDefault();-->
+                                                     <!--document.getElementById('logout-form').submit();">-->
+                                <!--{{ __('Logout') }}-->
+                            Logout
+                            </a>
 
+                            <!--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">-->
+                                <!--@csrf-->
+                            <!--</form>-->
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>

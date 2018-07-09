@@ -21,4 +21,13 @@ Route::get('/', function () {
 
 //Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 Route::post('/register', 'SpaController@register');
+Route::get('/register', 'SpaController@index');
+
+Route::get('/home', 'HomeController@index');
+Route::get('/login', 'AuthController@index');
+//Route::get('/admin', 'AdminController@index');
+Route::post('/admin', 'AdminController@index');
+
+
+
 

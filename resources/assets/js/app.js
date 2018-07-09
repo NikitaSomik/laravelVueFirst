@@ -23,6 +23,7 @@ import App from './App'
 import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
+import Welcome from './components/Welcome'
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
@@ -33,6 +34,11 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
+            name: 'welcome',
+            component: Welcome,
+        },
+        {
+            path: '/home',
             name: 'home',
             component: Home
         },
