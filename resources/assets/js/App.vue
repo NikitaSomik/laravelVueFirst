@@ -1,7 +1,5 @@
 <template>
     <div>
-
-
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="#">Navbar</a>
@@ -14,13 +12,20 @@
             <!-- Navbar links -->
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
+                    <template v-if="this.checkUser">
                     <li class="nav-item">
-                        <!--<a class="nav-link" href="#">Link</a>-->
-                        <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link> |
-                        <router-link class="nav-link" :to="{ name: 'login' }">Login</router-link>
-                        <router-link class="nav-link" :to="{ name: 'register' }">Register</router-link>
-                        <!--<router-link class="nav-link" :to="{ name: 'welcome' }">Welcome</router-link>-->
+                        <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link>
                     </li>
+                    </template>
+                    <template v-else>
+                        <li>
+                            <router-link class="nav-link" :to="{ name: 'login' }">Login</router-link>
+                        </li>
+                        <li>
+                            <router-link class="nav-link" :to="{ name: 'register' }">Register</router-link>
+                        </li>
+                    </template>
+                        <!--<router-link class="nav-link" :to="{ name: 'welcome' }">Welcome</router-link>-->
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
@@ -55,7 +60,12 @@
 
 <script>
     export default {
-       // name: "App.vue"
+        // name: "App.vue"
+         computed: {
+             checkUser: function() {
+                return localStorage.getItem('token')
+            }
+        }
     }
 </script>
 

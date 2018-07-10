@@ -24,10 +24,21 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Welcome from './components/Welcome'
+import Admin from './components/Admin'
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+function beforeEnter(to, from, next) {
+    if (getToken()) {
+        next();
+    } else {
+        next('/login')
+    }
+}
 
+function getToken() {
+    return localStorage.getItem('token');
+}
 
 const router = new VueRouter({
     mode: 'history',
@@ -35,23 +46,32 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'welcome',
-            component: Welcome,
+            component: Welcome
+
         },
         {
             path: '/home',
             name: 'home',
-            component: Home
+            component: Home,
+            beforeEnter
         },
         {
             path: '/login',
             name: 'login',
-            component: Login,
+            component: Login
+
         },
         {
             path: '/register',
             name: 'register',
-            component: Register,
+            component: Register
         },
+        {
+            path: '/admin',
+            name: 'admin',
+            component: Admin,
+            beforeEnter
+        }
     ],
 });
 

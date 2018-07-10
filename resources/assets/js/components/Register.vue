@@ -82,6 +82,7 @@
                     .catch((error) => {
                         //return error.response.data.errors;
                         this.register.errors = error.response.data.errors;
+                        this.register.error = true;
                         console.log(this.register.errors);
 
                     })

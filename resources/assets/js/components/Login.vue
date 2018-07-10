@@ -45,13 +45,14 @@
                 axios.post('/api/auth/login', this.login)
                     .then((response) => {
                         if (response.status == '200') {
-                            this.$router.push('/')
+                            localStorage.setItem('token', response.data.access_token);
+                            this.$router.push('/home');
+                            //console.log(response.data.roles);
                         }
                     })
                     .catch((error) => {
                         this.login.error = true;
                         console.log(this.login.error);
-
                     })
             },
         }

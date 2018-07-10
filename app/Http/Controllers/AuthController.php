@@ -6,6 +6,7 @@ use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 //use JWTAuth;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -97,6 +98,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'user' => $this->guard()->user(),
+            //'userRole' => $this->guard()->user()->roles,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);

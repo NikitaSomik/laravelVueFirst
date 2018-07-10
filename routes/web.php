@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('main');
-});
+Route::get('/', 'Twitter@index');
+Route::get('/tw', 'Twitter@apiTwitter');
 //
 //Auth::routes();
 
@@ -26,7 +25,9 @@ Route::get('/register', 'SpaController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/login', 'AuthController@index');
 //Route::get('/admin', 'AdminController@index');
-Route::post('/admin', 'AdminController@index');
+Route::get('/admin', 'AdminController@index');
+Route::post('/admin', 'AdminController@store');
+
 
 
 
