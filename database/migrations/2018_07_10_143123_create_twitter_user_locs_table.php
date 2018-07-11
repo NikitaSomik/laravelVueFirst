@@ -18,9 +18,9 @@ class CreateTwitterUserLocsTable extends Migration
             $table->string('name', 100);
             $table->longText('location');
             $table->longText('description');
-            $table->string('image', 300);
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->longText('image');
+//            $table->integer('user_id')->unsigned();
+//            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

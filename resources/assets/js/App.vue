@@ -54,18 +54,33 @@
                     <router-view></router-view>
                 </div>
             </div>
+            <div class="row">
+                <!--<google-map :name="name"></google-map>-->
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+
+    //import Admin from './components/Admin.vue'
+
     export default {
         // name: "App.vue"
-         computed: {
-             checkUser: function() {
+        computed: {
+            checkUser: function () {
                 return localStorage.getItem('token')
             }
         }
+        //     data: function () {
+        //         return {
+        //             name: 'map'
+        //         }
+        //     },
+        //     mounted: function () {
+        //     },
+        //     components: {Admin}
+        //
     }
 </script>
 

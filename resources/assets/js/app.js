@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -18,13 +19,25 @@ require('./bootstrap');
  */
 
 Vue.use(VueRouter)
+Vue.use(Vuex)
+
+
 
 import App from './App'
 import Home from './components/Home'
 import Login from './components/Login'
+import Admin from './components/Admin'
 import Register from './components/Register'
 import Welcome from './components/Welcome'
-import Admin from './components/Admin'
+import GoogleMape from './components/GoogleMape'
+
+
+import StoreData from './store'
+
+
+
+const store = new Vuex.Store(StoreData );
+
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
@@ -70,8 +83,9 @@ const router = new VueRouter({
             path: '/admin',
             name: 'admin',
             component: Admin,
-            beforeEnter
+            // beforeEnter
         }
+
     ],
 });
 
@@ -79,4 +93,5 @@ const app = new Vue({
     el: '#dev',
     components: { App },
     router,
+    store
 });

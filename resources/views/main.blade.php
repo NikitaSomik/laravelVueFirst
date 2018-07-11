@@ -22,6 +22,12 @@
     <div id="dev">
         <app></app>
     </div>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9yqc5WEPAMG8sUJz_VmTPHE6SItFSO8A"></script>
+
+    <script src="{{ asset('js/app.js') }}" ></script>
+    <script>
+
+    </script>
 </body>
 </html>

@@ -13,13 +13,13 @@ use AuthController;
 
 class Twitter extends Controller {
 
-//    public function index()
-//    {
-//
-//        return view('main');
-//    }
+        public function index()
+        {
 
-    public function index() {
+            return view('main');
+        }
+
+    public function apiTwitter() {
         Codebird::setConsumerKey(
             'SD7iWNQ6MvNQAapjXTWwkN4iA',
             'fwaPpJzEN5NeTIOIjpyxobbnyOCs41xmC5L1NyDv3u1kVR8AgU'
@@ -42,10 +42,9 @@ class Twitter extends Controller {
             'screen_name' => 'jublonet'
         ];
         $reply = $cb->users_show($params);
-dd($this->guard()->user());
 
-
-
+      //  $reply = $reply->data;
+            
 //        $twitterUserLoc = TwitterUserLoc::create([
 //            'name' => $reply->name,
 //            'location' => $reply->location,
@@ -54,18 +53,23 @@ dd($this->guard()->user());
 //            'friends_count' => $reply->friends_count,
 //            'statusText' => $reply->status->text,
 //            'profile_image_url' => $reply->profile_image_url,
-//            'user_id' => User::();
+//            'user_id' => 2
 //        ]);
+        $twitterUserLoc = new TwitterUserLoc();
+        $twitterUserLoc->name = $reply->name;
+        $twitterUserLoc->location = $reply->location;
+        $twitterUserLoc->description = $reply->description;
+        //$twitterUserLoc->followers_count = $reply->followers_count;
+        //$twitterUserLoc->friends_count = $reply->friends_count;
+        //$twitterUserLoc->statusText = $reply->status->text;
+        $twitterUserLoc->image  = $reply->profile_image_url;
+        //$twitterUserLoc->user_id = 2;
+        $twitterUserLoc->save();
 
 
-//name
-//location
-//description
-//followers_count
-//friends_count
-//status.text
-//profile_image_url
-        //return response()->json(['reply' => $reply]);
+        //var_dump($reply);
+
+       // return response()->json(['reply' => $r]);
     }
 
 

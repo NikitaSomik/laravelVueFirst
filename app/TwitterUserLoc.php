@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TwitterUserLoc extends Model
 {
-
-    protected $table = 'reviews';
+    protected $table = 'twitter_user_locs';
     //protected $fillable = [' user_id, product_id, content', 'checked','published'];
 
     public function user(){

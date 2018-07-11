@@ -1,7 +1,8 @@
 <template>
     <div>
-        <p>Welcome</p>
-        <button @click="get"></button>
+        <h2>{{ welcome }}</h2>
+        <br><br>
+        <button @click="get">Submit</button>
     </div>
 
 </template>
@@ -10,17 +11,6 @@
     export default {
         name: "Welcome",
 
-        // props: ['reply '],
-        // computed: {
-        //     decodedData() {
-        //         return JSON.parse(this.dataFromPhp );
-        //     }
-        // },
-        // data() {
-        //     return {
-        //         //message: JSON.parse(this.dataFromPhp)
-        //     }
-        // },
         props: ['reply'],
         // created() {
         //     axios.get('/')
@@ -45,12 +35,12 @@
 
                     })
             }
+        },
+        computed: {
+            welcome() {
+                return this.$store.getters.welcome;
+            }
         }
-        // computed: {
-        //     decodedData() {
-        //         return JSON.parse(this.reply );
-        //     }
-        // }
     }
 
 
