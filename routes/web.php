@@ -13,6 +13,7 @@
 
 Route::get('/', 'Twitter@index');
 Route::get('/tw', 'Twitter@apiTwitter');
+Route::post('/tw', 'Twitter@apiTwitter');
 //
 //Auth::routes();
 

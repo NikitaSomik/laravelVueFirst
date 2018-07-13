@@ -52156,7 +52156,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52176,6 +52176,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -52184,6 +52187,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             name: 'map'
         };
+    },
+    methods: {
+        // sendParam() {
+        //     console.log(window);
+        // }
     },
     mounted: function mounted() {},
     components: { googleMap: __WEBPACK_IMPORTED_MODULE_0__GoogleMape___default.a }
@@ -52241,6 +52249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'google-map',
@@ -52248,17 +52257,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             map: null,
-            // markers: {
-            //     position: {
-            //         latitude: 59.93,
-            //         longitude: 30.32
-            //     }
-            // }
             markers: [],
-            startLocation: { lat: 37.769, lng: -122.446 }
+            cityCircle: [],
+            startLocation: {
+                lat: 37.769,
+                lng: -122.446
+            },
+            loc: {
+                lat: null,
+                lng: null
+            },
+            radiusCircle: null
         };
     },
     methods: {
+        //     activities.addEventListener("change", function() {
+        //     if(activities.value == "addNew")
+        //     {
+        //         addActivityItem();
+        //     }
+        // });
+
+        sendParam: function sendParam() {
+            axios.post('/tw', {
+                lat: this.loc.lat,
+                lng: this.loc.lng,
+                radius: this.radiusCircle.getRadius()
+            }).then(function (response) {
+                if (response.status == '200') {
+
+                    console.log(response);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+
         // Adds a marker to the map and push to the array.
         addMarker: function addMarker(location) {
             var marker = new google.maps.Marker({
@@ -52266,26 +52301,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 map: this.map
             });
             this.markers.push(marker);
+            // console.log(location.lat());
+            this.loc.lat = location.lat();
+            this.loc.lng = location.lng();
         },
         addCircle: function addCircle(locCircle) {
-            var cityCircle = new google.maps.Circle({
+
+            var cityCirc = new google.maps.Circle({
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: '#FF0000',
                 fillOpacity: 0.35,
+                editable: true,
                 map: this.map,
                 center: this.startLocation,
                 //radius: Math.sqrt(this.startLocation) * 100
                 radius: 1000
             });
 
-            cityCircle.bindTo('center', locCircle, 'position');
+            this.cityCircle.push(cityCirc);
+            this.radiusCircle = cityCirc;
+            //console.log(cityCirc.getRadius());
+            cityCirc.bindTo('center', locCircle, 'position');
         },
 
 
         // Sets the map on all markers in the array.
         setMapOnAll: function setMapOnAll(map) {
+
             for (var i = 0; i < this.markers.length; i++) {
                 this.markers[i].setMap(map);
             }
@@ -52296,7 +52340,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         clearMarkers: function clearMarkers() {
             this.setMapOnAll(null);
         },
-
+        clearCircle: function clearCircle(map) {
+            for (var i = 0; i < this.cityCircle.length; i++) {
+                this.cityCircle[i].setMap(map);
+            }
+        },
 
         // Shows any markers currently in the array.
         showMarkers: function showMarkers() {
@@ -52309,6 +52357,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.clearMarkers();
             this.markers = [];
         },
+        deletCircle: function deletCircle() {
+            this.clearCircle(null);
+            this.cityCircle = [];
+        },
         initMap: function initMap() {
             var _this = this;
 
@@ -52320,100 +52372,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.map.addListener('click', function (event) {
                 _this.deleteMarkers();
+                _this.deletCircle();
+                //console.log(event.latLng.lat());
+                //console.log(event.latLng.lng());
                 _this.addMarker(event.latLng);
+                _this.addCircle(_this.markers[0]);
             });
 
-            this.addMarker(this.startLocation);
-
-            //for (var marker in this.markers) {
-            // Add the circle for this city to the map.
-
-            //circle.bindTo('center', this.markers, 'position');
-
-            //}
-
-            this.addCircle(this.markers[0]);
+            // this.addMarker(this.startLocation);
         }
-    },
+        //this.cityCircle.getRadius()
 
+    },
     computed: {},
     mounted: function mounted() {
         this.initMap();
-        // /*eslint-disable */
-        // const element = document.getElementById(this.name)
-        // const options = {
-        //     zoom: 14,
-        //     center: new google.maps.LatLng(59.93, 30.32),
-        //     mapTypeId: google.maps.MapTypeId.ROADMAP
-        // }
-        // this.map = new google.maps.Map(element, options)
-        //
-        // let map = this.map;
-        //
-        // google.maps.event.addListener(this.map, 'click', function (event) {
-        //
-        //     // this.markers = new google.maps.Marker({
-        //     //     position: {
-        //     //         lat: 0,
-        //     //         lng: 0
-        //     //     },
-        //     //     map: map,
-        //     //     draggable: true
-        //     // });
-        //     getMarkers(this.markers)
-        //     //setMapOnAll(null);
-        //
-        //     // if (map) {
-        //     //     //this.markers.$set()
-        //     //    // this.markers.set(map, null)
-        //     //
-        //     // } else {
-        //         let lng = event.latLng.lng();
-        //         let lat = event.latLng.lat();
-        //
-        //         this.markers = new google.maps.Marker({
-        //             position: {
-        //                 lat: lat,
-        //                 lng: lng
-        //             },
-        //             map: map,
-        //             draggable: true
-        //         });
-        //     console.log(this.markers.position.lat())
-        //         //console.log(this.markss.map.center.lat())
-        //     //}
-        // })
     },
     watch: {}
-
-    // methods: {
-    //     placeMarker: function(location) {
-    //         if (marker) {
-    //             //if marker already was created change positon
-    //             this.marker.setPosition(location);
-    //         } else {
-    //             //create a marker
-    //             this.marker = new google.maps.Marker({
-    //                 position: location,
-    //                 map: map,
-    //                 draggable: true
-    //             });
-    //         }
-    //     },
-    //     initialize: function() {
-    // var centerPosition = new google.maps.LatLng(38.713107, -90.42984);
-    // var options = {
-    //         zoom: 6,
-    //     center: centerPosition,
-    //         mapTypeId: google.maps.MapTypeId.ROADMAP
-    //     };
-    //     map = new google.maps.Map($('#map')[0], options);
-    //
-    //     google.maps.event.addListener(map, 'click', function (evt) {
-    //         placeMarker(evt.latLng);
-    // });
-    //     }
-    // },
 
 });
 
@@ -52426,7 +52401,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "google-map", attrs: { id: _vm.name } })
+    _c("div", { staticClass: "google-map", attrs: { id: _vm.name } }),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.sendParam } }, [_vm._v("Submit")])
   ])
 }
 var staticRenderFns = []
