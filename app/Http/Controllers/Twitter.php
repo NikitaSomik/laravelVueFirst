@@ -23,7 +23,7 @@ class Twitter extends Controller {
         $cb = Codebird::getInstance();
 
         $p = ['grant_type' => 'client_credentials'];
-        $cb->oauth2_token($p);
+        //$cb->oauth2_token($p);
         //$bearer_token = $reply->access_token;
 
         $cb->setToken(
@@ -31,29 +31,45 @@ class Twitter extends Controller {
             'nc0pCFlmLfg3gKC9YXx4vzxved9cLht04vZFXMbVrX0Bq'
         );
 
-        //$reply = (array) $cb->search_tweets();
-        $params = [
-            'q' => '',
-//            'lat'    => request('lat'),
-//            'long'   => request('lng'),
-            'geocode' => request('lat'),request('lng'),request('radius')
-        ];
-        $reply = $cb->search_tweets($params);
-        //$reply = $cb->users_show($params);
 
 //        $params = [
-//            'status' => 'I love Kiev',
-//            'lat'    => 51.5033,
-//            'long'   => 0.1197
+//            'q' => $request->query,
+//            //'geocode' => "request('lat'),request('lng'),request('radius')"
+//            //'geocode' => "30.1829,-97.832,10mi"
+//            //'geocode' => "37.74373938365382 -122.45075065868139 5412.344325916153"
 //        ];
-//        $reply = $cb->statuses_update($params);
+        $radius = $request->radius;
+        $geo =  $request->lat.','.$request->lng.','.$radius.'km';
+        $reply = $cb->search_tweets([
+            'q' => $request->querys,
+            'geocode' => $geo,
+            'count' => 1000
+        ]);
+
+//        $reply = $cb->users_search([
+//            'q' => 'nikita'
+//        ]);
+        return response()->json(['reply' => $reply]);
+    }
+//lat  37.74373938365382
+//lng  -122.45075065868139
+//radius 5412.344325916153
+
+
+//    public function guard() {
+//        return \Auth::Guard('api');
+//    }
+}
 
 
 
-        //dd($reply);
-        //$reply = $cb->users_show($params);
 
-      //  $reply = $reply->data;
+
+
+//dd($reply);
+//$reply = $cb->users_show($params);
+
+//  $reply = $reply->data;
 //dd($reply);
 
 //        $twitterUserLoc = new TwitterUserLoc();
@@ -68,7 +84,7 @@ class Twitter extends Controller {
 //        $twitterUserLoc->save();
 
 
-        //        $twitterUserLoc = TwitterUserLoc::create([
+//        $twitterUserLoc = TwitterUserLoc::create([
 //            'name' => $reply->name,
 //            'location' => $reply->location,
 //            'description' => $reply->description,
@@ -78,16 +94,3 @@ class Twitter extends Controller {
 //            'profile_image_url' => $reply->profile_image_url,
 //            'user_id' => 2
 //        ]);
-
-
-        return response()->json(['reply' => $reply]);
-    }
-
-
-
-//    public function guard() {
-//        return \Auth::Guard('api');
-//    }
-}
-
-

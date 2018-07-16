@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="google-map" :id="name"></div>
+        <input type="text" v-model="query">
         <button @click="sendParam">Submit</button>
     </div>
 </template>
@@ -22,26 +23,21 @@
                     lat: null,
                     lng: null
                 },
+                query: 'San Francisco',
                 radiusCircle: null
             }
         },
         methods: {
-        //     activities.addEventListener("change", function() {
-        //     if(activities.value == "addNew")
-        //     {
-        //         addActivityItem();
-        //     }
-        // });
 
             sendParam() {
                 axios.post('/tw', {
                         lat: this.loc.lat,
                         lng: this.loc.lng,
-                        radius: this.radiusCircle.getRadius()
+                        radius: this.radiusCircle.getRadius(),
+                        querys: this.query
                 })
                 .then((response) => {
                     if (response.status == '200') {
-
                         console.log(response);
                     }
                 })

@@ -2,8 +2,6 @@
     <div>
         <h2>Hello</h2>
         <google-map :name="name"></google-map>
-
-
     </div>
 
 </template>

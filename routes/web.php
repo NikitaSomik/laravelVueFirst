@@ -11,9 +11,18 @@
 |
 */
 
-Route::get('/', 'Twitter@index');
-Route::get('/tw', 'Twitter@apiTwitter');
-Route::post('/tw', 'Twitter@apiTwitter');
+Route::get('/', 'TwitterController@index');
+Route::get('/tw', 'TwitterController@fetchTweetsFromApi');
+Route::post('/tw', 'TwitterController@fetchTweetsFromApi');
+
+
+
+//Route::get('/', 'Twitter@index');
+//Route::get('/tw', 'Twitter@apiTwitter');
+//Route::post('/tw', 'Twitter@apiTwitter');
+
+
+//Route::resource('/', 'TwitterController');
 //
 //Auth::routes();
 
